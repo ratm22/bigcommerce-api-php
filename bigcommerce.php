@@ -154,6 +154,10 @@ namespace Bigcommerce\Api {
         {
             return self::deleteResource('/products/' . $id);
         }
+    	public static function getProductOptions($product_id)
+        {
+            return self::getCollection('/products/' . $product_id . '/options', 'ProductOption');
+        }
         public static function getOptions($filter = false)
         {
             $filter = Filter::create($filter);
@@ -197,6 +201,7 @@ namespace Bigcommerce\Api {
         {
             return self::createResource('/categories', $object);
         }
+		
         public static function updateCategory($id, $object)
         {
             return self::updateResource('/categories/' . $id, $object);
@@ -204,6 +209,15 @@ namespace Bigcommerce\Api {
         public static function deleteCategory($id)
         {
             return self::deleteResource('/categories/' . $id);
+        }
+		
+		public static function createOptionset($object)
+        {
+            return self::createResource('/optionsets', $object);
+        }
+		public static function createOptionsetOption($id,$object)
+        {
+            return self::createResource('/optionsets/'.$id.'/options/', $object);
         }
         public static function getBrands($filter = false)
         {
@@ -303,9 +317,9 @@ namespace Bigcommerce\Api {
             $filter = Filter::create($filter);
             return self::getCollection('/products/skus' . $filter->toQuery(), 'Sku');
         }
-        public static function createSku($object)
+        public static function createSku($id,$object)
         {
-            return self::createResource('/products/skus', $object);
+            return self::createResource('/products/'. $id.'/skus', $object);
         }
         public static function updateSku($id, $object)
         {
